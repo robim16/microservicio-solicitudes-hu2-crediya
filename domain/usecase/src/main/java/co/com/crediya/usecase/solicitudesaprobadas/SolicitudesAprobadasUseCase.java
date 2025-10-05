@@ -12,9 +12,11 @@ public class SolicitudesAprobadasUseCase {
     public Mono<Void> notificarSolicitudAprobada(Solicitud solicitud) {
         return Mono.fromSupplier(() -> {
                     Solicitud payload = solicitud;
+
+                    String solicitudJson = payload.toJson();
                     return Notificacion.builder()
                             .type("PRESTAMO_APROBADO")
-                            .payload(payload)
+                            .payload(solicitudJson)
                             .destino("SQS")
                             .build();
                 })
